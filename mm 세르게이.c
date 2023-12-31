@@ -343,7 +343,6 @@ static void *re_place(void *bp, size_t asize, size_t totalSize)
     }
     else
     {
-        // printf("작다\n");
         remove_free(NEXT_BLKP(bp));
         PUT(HDRP(bp), PACK(totalSize, 1));
         PUT(FTRP(bp), PACK(totalSize, 1));
@@ -371,8 +370,6 @@ void *mm_realloc(void *ptr, size_t size)
     // 일단 작은경우 제외
     if (reSize <= oldSize)
     {
-        // printf("줄여\n");
-        // re_place(ptr,reSize,oldSize);
         return ptr;
     }
 
@@ -386,12 +383,8 @@ void *mm_realloc(void *ptr, size_t size)
     {
         if (reSize <= totalSize)
         {
-            // printf("요청 크기:%d, %d\n",size,reSize);
             return re_place(ptr, reSize, totalSize);
-            // PUT(HDRP(ptr), PACK(totalSize, 1));
-            // PUT(FTRP(ptr), PACK(totalSize, 1));
-            // free_cursor = ptr;
-            // return ptr;
+
         }
     }
 
